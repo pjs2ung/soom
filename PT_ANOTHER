@@ -1,1 +1,38 @@
-name dooly;
+
+onKeyUp="javascript:fnChkByte(this, 256)"
+
+
+function fnChkByte(obj, maxByte){
+		var str = obj.value;
+		var str_len = str.length;
+
+		var rbyte = 0;
+		var rlen = 0;
+		var one_char = "";
+		var str2 = "";
+
+		for (var i = 0; i < str_len; i++) {
+			one_char = str.charAt(i);
+			if (escape(one_char).length > 4) {
+				//한글3Byte
+				rbyte += 3;
+			} else {
+				//영문 등 나머지 1Byte
+				rbyte++;
+			}
+
+			if (rbyte <= maxByte) {
+				//return할 문자열 갯수
+				rlen = i + 1;
+			}
+		}
+
+		if (rbyte > maxByte) {
+			//문자열 자르기
+			str2 = str.substr(0, rlen);
+			obj.value = str2;
+			$(obj).closest('td').removeClass('info_error2');
+			$(obj).css('background-color','#c4ede0');
+		}
+        $('#submitForm').trigger("change");
+	}
