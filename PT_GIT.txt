@@ -1,1 +1,88 @@
-name cat;
+d /d/dev/workspace/foundry
+	- 현재 작업중인 폴더로 이동
+
+$ git clean -fd src/main/webapp/WEB-INF/.gitignore
+	- 해당 경로에 있는 파일 삭제
+	
+$ git clean -fd
+	- 현재 위치의 브랜치와 다른 점 클린해줌 (삭제? 추가?)
+	
+$ git log
+	- 현재 브랜치의 로그를 보여줌 (최근순)
+	
+$ git ll
+	- 상세 로그 보여줌 
+	
+$ git diff
+	- 내 로컬과 다른점 비교
+	
+$ git branch -av
+	- 현재 위치에 관련한 브랜치 목록보기
+
+$ git l --no-merges 
+	merge 된 내역 제외한 기록 
+		
+$ git merge --no-ff rollback/multi-tag-ip-registration-request
+	현재 브랜치에서 merge ( rollback/multi-tag-ip-registration-request -> qcp )
+	
+$ git push 
+	현재 브랜치에서 push
+	
+$ git show c98daee0b"
+$ git co -m "[QCP] I/F field add(IF_DATE)"
+	커밋 
+
+$ git restore --staged .classpath
+	.classpath 항목을 커밋할 시 제외시킨다.
+	
+$ git b -m rollback/multi-tag-ip-registration-request
+	rollback 폴더안에 브랜치를 만든다.
+	
+$ git merge --no-ff [대상브랜치]
+	현재 브랜치에 [대상브랜치]를 merge 시킴
+	
+$ git commit --amend
+	마지막 커밋 해쉬에 덮어씌움
+	
+$ git fetch
+	현재 브랜치와 연결된 다른 브랜치의 내역까지 땡겨옴
+	
+	
+* merge 옵션 --------------------------------------------------
+$ git merge {병합할 브랜치 명}
+	보통의 병합 : 현 브랜치와 병합할 브랜치가 Fast-Forward 관계 O-> 병할할 브랜치(커밋)을 따라감. without Merge 커밋
+			  현 브랜치와 병합할 브랜치가 Fast-Forward 관계 X -> 병합할 브랜치와 병합됨. with Merge 커밋
+
+$ git merge --no-ff {병합할 브랜치 명}
+	이기적인 병합 : 현재 브랜치와 병합 대상의 관계가 Fast-Forward이던 아니던 무조건 Merge 커밋과 같이 병합되는 옵션
+
+$ git merge --ff-only {병합할 브랜치 명}
+	소심한 병합 : 현재 브랜치와 병합 대상의 관계가 Fast-Forward인 경우에만 병합 진행. Merge 커밋 생성되지 않음
+	
+$ git merge --squash {병합할 브랜치 명}
+	양아치 병합 : 현재 브랜치에 병합 대상과의 차이나는 commit을 하나로 합쳐서 커밋함
+
+* reset / revert --------------------------------------------------
+$ git reset
+	특정 커밋으로 되돌아갈 수 있는데, 되돌린 버전 이후의 버전들은 히스토리에서 삭제
+	
+$ git revert
+	reset처럼 특정 버전으로 되돌아갈 수 있지만, 되돌린 버전 이후의 버전들의 이력은 남아있다.
+	
+# add 하기 전 상태로 되돌리기
+ $ git checkcout -- { file } 
+	파일하나만 되돌릴경우.
+ $ git checkcout . 
+	모든 파일을 되돌릴경우 
+	
+# git add를 한 상태에서 되돌리기
+ $ git reset {파일명}
+ 
+# commit까지 한 상태에서 되돌리기
+ $ git reset/revert [버전]
+ 
+# 이미 원격 저장소에 push를 한 상태에서 되돌리고 싶다면 [git revert]를 사용해야 합니다.
+
+
+
+(https://victorydntmd.tistory.com/79?category=682764)
