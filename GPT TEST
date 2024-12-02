@@ -1,1 +1,3 @@
-TEST GIT
+svelte에서 categoryList 라는 store를 사용중이야
+categoryList에는 id, name 요소가 있어 
+이 store에 데이터를 push하고 이후 다시 초기화 하는 방법을 알려줘
