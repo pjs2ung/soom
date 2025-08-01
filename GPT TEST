@@ -1,6 +1,71 @@
-객체들로 이뤄진 배열이 있어
-이 객체는 key value 형태로 되어있고
-key는 aaa_bbb:ccc 의 string 형태야
-value에는 checkListDetailDtoList라는 배열이 있어
-이 객체에서 aaa_bbb가 동일한 key끼리 비교해 checkListDetailDtoList가 비어있으면 checkListDetailDtoList가 있는 것에서 복사를 해주고 싶어
-자바스크립트로 코딩을 알려줘
+
+document.addEventListener('click', event => {
+       if (event.target.id === 'useTypeAdd') {
+        let useType = document.querySelector('input[name="way_zone01"]:checked').value;
+        let useTypeInput = document.getElementById('useTypeInput');
+        let useTypeList = document.getElementById('useTypeList');
+        let div = document.createElement('div');
+        let span = document.createElement('span');
+        let btn = document.createElement('button');
+        btn.classList.add('s_close');
+        btn.addEventListener('click', deleteUseType);
+
+        if (useTypeInput.value === '') {
+            return;
+        }
+
+        if (useTypeList.childElementCount > 0) {
+            const useTypeListItems = useTypeList.getElementsByTagName('span');
+            // wrapper인 경우
+            if (useType === '1') {
+                if (useTypeInput.value.endsWith('_sub')) {
+                    for (let i = 0; i < useTypeListItems.length; i++) {
+                        if (useTypeInput.value === useTypeListItems[i].innerText) {
+                            alert('이미 추가된 사용방법입니다.');
+                            useTypeInput.value = '';
+                            return;
+                        }
+                    }
+                } else {
+                    useTypeInput.value += '_sub';
+                    for (let i = 0; i < useTypeListItems.length; i++) {
+                        if (useTypeInput.value === useTypeListItems[i].innerText) {
+                            alert('이미 추가된 사용방법입니다.');
+                            useTypeInput.value = '';
+                            return;
+                        }
+                    }
+                }
+            } else {
+                for (let i = 0; i < useTypeListItems.length; i++) {
+                    if (useTypeInput.value === useTypeListItems[i].innerText) {
+                        alert('이미 추가된 사용방법입니다.');
+                        useTypeInput.value = '';
+                        return;
+                    }
+                }
+            }
+        }
+
+      
+        if (useType === '1') {
+            if (!useTypeInput.value.endsWith('_sub')) {
+                useTypeInput.value += '_sub';
+            }
+        }
+
+        div.className = 'person';
+        span.innerText = useTypeInput.value;
+        div.append(span);
+        div.append(btn);
+        useTypeList.append(div);
+
+        //추가 후 입력된 내용 삭제
+        useTypeInput.value = '';
+        //추가 후 count 갱신
+        let cntUseType = useTypeList.childElementCount;
+        document.getElementById('cntUseType').innerText = 'Total ' + cntUseType;
+    }
+
+
+이 함수를 응용해서, useTypeInput에 쓰여진 문자열을 공백을 기준으로 입력했을때 공백을 기준으로 여러개의 element를 만들도록 변경하고 싶어 예를들어 aaa bbb ccc 로 입력햇으면 aaa 한줄,  bbb 한줄, ccc한줄로 나와야해
